@@ -56,7 +56,36 @@ Player.prototype.update = function(){};
 //render the player    // body... 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}; 
+};
+//handling input for the player
+Player.prototype.handleInput = function(key){
+    if(key =='left') {
+        this.x = (this.x - this.speed + 505) % 505;
+    } else if(key == 'right') {
+        this.x = (this.x + this.speed) % 505;
+    } else if(key == 'up') {
+        this.y = (this.y - this.speed + 606) % 606;
+        //going to water level
+        if(this.y <= (83 - 48)) {
+            gameOver();
+            return;
+        }
+
+    } else {
+        this.y = (this.y + this.speed) % 606;
+        if(this.y > 400) {
+            this.y = 400;
+        }
+    }
+    //wrapping x-axis
+    // body... 
+    if(this.x < 2.5) {
+        this.x = 2.5;
+    }
+    if (this.x > 458) {
+        this.x = 458;
+    }
+};
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
