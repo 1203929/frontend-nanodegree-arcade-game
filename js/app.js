@@ -1,10 +1,7 @@
-// Enemies our player must avoid
-var Enemy = function(x,y,speed) {
+var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.x = x;
-    this.y = y;
-    this.speed = speed; 
+
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -16,11 +13,6 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x = this.x + this.speed * dt;
-    if(this.x >= 505) {
-        this.x = 0;
-    }
-    this.checkCollision();
 };
 
 // Draw the enemy on the screen, required method for game
@@ -31,61 +23,14 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-Enemy.prototype.checkCollision = function(){
-    if(player.y + 131 >= this.y + 90 &&
-        player.y + 73 <= this.y + 135 &&
-        player.x + 25 <= this.x + 88 &&
-        player.x + 76 >= this.x + 11) {
-        console.log('collision');
-    gameReset();
-    }
-    // body... 
-};
+
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
- var Player = function(x,y, speed) {
-    this.x = x;
-    this.y = y;
-    this.speed = speed;
-    this.sprite = 'images/char-boy.png';
- };
 
-//updating method for player
-Player.prototype.update = function(){};
-//render the player    // body... 
-Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-//handling input for the player
-Player.prototype.handleInput = function(key){
-    if(key =='left') {
-        this.x = (this.x - this.speed + 505) % 505;
-    } else if(key == 'right') {
-        this.x = (this.x + this.speed) % 505;
-    } else if(key == 'up') {
-        this.y = (this.y - this.speed + 606) % 606;
-        //going to water level
-        if(this.y <= (83 - 48)) {
-            gameOver();
-            return;
-        }
 
-    } else {
-        this.y = (this.y + this.speed) % 606;
-        if(this.y > 400) {
-            this.y = 400;
-        }
-    }
-    //wrapping x-axis
-    // body... 
-    if(this.x < 2.5) {
-        this.x = 2.5;
-    }
-    if (this.x > 458) {
-        this.x = 458;
-    }
-};
+
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
@@ -98,4 +43,3 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-b
