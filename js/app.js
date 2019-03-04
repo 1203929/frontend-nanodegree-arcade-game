@@ -63,7 +63,7 @@ player.update();
 player.render();
 player.handleInput();
 
-var allEnemies = [player.update(),player.render()];
+var allEnemies = [player];
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
