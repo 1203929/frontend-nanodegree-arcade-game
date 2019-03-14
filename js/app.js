@@ -2,12 +2,12 @@
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
      // $ browser-sync start --server --files *.html css/*.css
+     this.x = x;
+     this.y = y;
      this.speed = speed;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-    this.x = x;
-    this.y = y;
 
 };
 
@@ -21,6 +21,7 @@ Enemy.prototype.update = function(dt) {
     if(this.x >= 505){
       this.x = 0;
     }
+    this.checkCollisions();
     // handleCollision();
 };
 
@@ -39,19 +40,43 @@ var Player = function (x,y),speed{
   this.x = x;
   this.y = y;
   this.speed = speed;
+  this.sprite = 'images/char-boy.png';
   // update();
   // render();
   // handleInput();
-}
+};
 Player.prototype.update = function(){
 // This method update method for the player
-}
+};
 
 Player.prototype.render = function(){
   ctx.drawImage(Resources.get(this.sprite),this.x,this.y);
 };
 
-Player.prototype.handleInput = function(){
+Player.prototype.handleInput = function(key){
+  if(key == 'left'){
+    this.x = (this.x - this.speed + 505) % 505;
+  } else if (key == 'right'){
+    this.x = (this.x + this.speed) % 505;
+  } else if (key == 'up') {
+    this.y =(this.y - this.speed + 606) % 606;
+    if (this.y <= (83 - 48)){
+      // eliminating height of player
+      gameOver();
+      return;
+    }
+  } else {
+    this.y = (this.y + this.speed) % 606;
+    if(this.y > 400) {
+      this.y = 400;
+    }
+  }
+  if (this.x < 2.5) {
+    this.x = 2.5;
+  }
+  if(this.x > 2.5) {
+    this.x = 458;
+  }
 
 };
 // Now instantiate your objects.
@@ -63,7 +88,7 @@ player.update();
 player.render();
 player.handleInput();
 
-var allEnemies = [player];
+var allEnemies = [];
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
