@@ -35,7 +35,7 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 
 
-var Player = function (x,y),speed{
+var Player = function speed(x,y){
   this.sprite = 'images/char-pink-girl.png';
   this.x = x;
   this.y = y;
@@ -49,9 +49,6 @@ Player.prototype.update = function(){
 // This method update method for the player
 };
 
-Player.prototype.render = function(){
-  ctx.drawImage(Resources.get(this.sprite),this.x,this.y);
-};
 
 Player.prototype.handleInput = function(key){
   if(key == 'left'){
@@ -79,13 +76,20 @@ Player.prototype.handleInput = function(key){
   }
 
 };
+
+// resetting player to initial position
+Player.prototype.reset = function(){
+  this.x = 202.5;
+  this.y = 383;
+};
+
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var player = new Player();
+var player = new Player(0,0,50);
 player.update();
-player.render();
 player.handleInput();
 
 var allEnemies = [];
